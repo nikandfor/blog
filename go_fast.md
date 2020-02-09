@@ -87,7 +87,7 @@ go build -gcflags '-m -m' # and more -m
 
 ## CPU
 
-### Heap and Stack
+### Cache
 
 Even if you get rid of all your allocs treading memory right still can give you some nanoseconds.
 Strive to keep your data small and grouped by usage. Keywords here is data locality and CPU cache.
@@ -97,6 +97,12 @@ Shorter the code -> fewer instructions needed to store it -> fewer memory reads 
 better cache utilization -> faster program works.
 
 Cache optimization may result in x2 gain in speed.
+
+```bash
+valgrind --tool=cachegrind ./executable # ...
+```
+valgrind can simulate cache and show numbers.
+For program in c/c++ it also able to show detailed statistics for each line of code but not for go.
 
 ### `b[i] = v; i++; copy(b[i:], str) vs b = append(b, v)`
 
